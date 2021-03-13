@@ -1,0 +1,320 @@
+@import "~antd/dist/antd.css";
+
+:root {
+  --color-white: #ffffff;
+  --color-light: #f1f5f9;
+  --color-black: #121212;
+  --color-night: #001632;
+  --color-red: #ff4757;
+  --color-blue: #34ace0;
+  --color-green: #00b894;
+  --drk-green: #20bf6b;
+  --drk-blue: #1b9cfc;
+  --color-gray: #ced6e0;
+  --color-grayish: #dadce0;
+  --main-color: #f8a5c2;
+  --main-text-color: #2c2c54;
+  --shadow-normal: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-large: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.App {
+  text-align: center;
+}
+
+.ant-alert {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+  font-size: 1em;
+}
+
+.lazyContent {
+  text-align: center;
+  width: 100%;
+  margin: 100px 0;
+}
+
+.menuBar {
+  padding: 0 55px;
+  margin-bottom: 3rem;
+  border-bottom: solid 1px #e8e8e8;
+  overflow: auto;
+  box-shadow: 0 0 30px #f3f1f1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+}
+
+.menuBar .logo {
+  display: inline-block;
+  margin-right: 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.menuBar .logo img {
+  width: 60px;
+}
+
+.menuBar .logo a {
+  font-size: 1.5rem;
+  text-transform: capitalize;
+}
+
+.menuBar .logo .title {
+  font-size: 12pt;
+  font-weight: bold;
+  color: #282c34;
+  margin-left: 5px;
+}
+
+.menuCon {
+  width: calc(100% - 150px);
+  float: left;
+}
+
+.menuCon .ant-menu-item {
+  margin: 0 10px !important;
+}
+
+.menuCon .ant-menu-submenu-title {
+  padding: 10px 20px;
+}
+
+.menuCon .ant-menu-horizontal {
+  border-bottom: none;
+}
+
+.menuCon .leftMenu {
+  float: left;
+}
+
+.menuCon .rightMenu {
+  float: right;
+}
+
+.barsMenu {
+  float: right;
+  height: 32px;
+  padding: 6px;
+
+  display: none;
+  background: none;
+}
+
+.barsBtn {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: #1890ff;
+  position: relative;
+}
+
+.barsBtn:after,
+.barsBtn:before {
+  content: attr(x);
+  width: 20px;
+  position: absolute;
+  top: -6px;
+  left: 0;
+  height: 2px;
+  background: #1890ff;
+}
+
+.barsBtn:after {
+  top: auto;
+  bottom: -6px;
+}
+
+.ant-drawer-body {
+  padding: 0;
+}
+
+.barsMenu > span {
+  display: block;
+}
+
+.ant-drawer-body .ant-menu-horizontal > .ant-menu-item,
+.ant-drawer-body .ant-menu-horizontal > .ant-menu-submenu {
+  display: inline-block;
+  width: 100%;
+}
+
+.ant-drawer-body .ant-menu-horizontal {
+  border-bottom: none;
+}
+
+.ant-drawer-body .ant-menu-horizontal > .ant-menu-item:hover {
+  border-bottom-color: transparent;
+}
+
+.site-page-header span {
+  font-size: 11pt;
+  color: #222f3e;
+}
+.site-page-header .ant-page-header-back {
+  padding: 4px;
+}
+
+.shadow-lg {
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+}
+
+.site-layout-content {
+  padding: 2rem;
+  background-color: #fafafa;
+}
+
+/* .site-layout-content .ant-typography {
+  background-color: #fafafa;
+} */
+
+.ant-layout-footer {
+  margin-top: 5rem;
+}
+
+.card-form .ant-card {
+  border-radius: 5px;
+  box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.2) !important;
+}
+
+.card-form .ant-card-head-wrapper {
+  text-align: center;
+}
+
+.card-form .ant-card-head-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.resume-contact {
+  border-left: 1px solid rgba(0, 0, 0, 0.08);
+  padding-left: 25px;
+}
+
+.resume-contact svg {
+  margin-right: 15px;
+}
+.resume-intro .ant-typography {
+  font-size: 1rem;
+}
+
+.resume-section-heading {
+  border-left: 4px solid;
+}
+
+.resume-section-heading h2 {
+  position: relative;
+  padding-left: 1rem;
+  font-size: 1.2rem;
+  letter-spacing: 0.15rem;
+  margin-bottom: 1rem;
+  /* color: #54b689; */
+}
+
+.resume-aside {
+  border-left: 1px solid rgba(0, 0, 0, 0.08);
+  padding-left: 25px;
+}
+
+.resume-aside .ant-tag {
+  padding: 5px;
+  font-size: 0.8rem;
+}
+.resume-aside .ant-tag svg {
+  margin-right: 3px;
+}
+
+.resume-name {
+  font-size: 2.75rem;
+  font-weight: 900;
+  letter-spacing: 0.4rem;
+}
+.resume-tagline {
+  font-size: 1rem;
+  font-weight: 300;
+}
+.resume-contact {
+  font-size: 0.9;
+}
+.resume-social-list .ant-btn-link {
+  font-size: 1rem;
+  color: #282c34;
+}
+
+.tb-colored thead th {
+  background-color: var(--main-color);
+  padding: 10px;
+  font-size: 1.2em;
+}
+
+.tb-colored tbody tr:nth-of-type(odd) {
+  background: var(--color-light);
+}
+
+.tb-colored thead th:last-child {
+  text-align: center;
+}
+
+.tb-colored thead th:first-child {
+  min-width: 200px;
+}
+
+@media (max-width: 767px) {
+  .barsMenu {
+    display: inline-block;
+  }
+
+  .leftMenu,
+  .rightMenu {
+    display: none;
+  }
+
+  .menuCon .ant-menu-item,
+  .menuCon .ant-menu-submenu-title {
+    padding: 1px 20px;
+  }
+
+  .logo a {
+    padding: 10px 20px;
+  }
+
+  .resume-intro .ant-typography {
+    margin-top: 20px;
+    font-size: 0.75rem;
+    text-align: justify;
+  }
+  .resume-contact {
+    border: 0;
+    padding-left: 0px;
+    margin-top: 20px;
+  }
+  .site-layout-content {
+    padding: 15px;
+  }
+  .ant-layout-content {
+    padding: 0 20px !important;
+  }
+  .menuBar {
+    padding: 0 20px;
+  }
+  .menuBar .logo {
+    display: inline-block;
+    margin-left: 5px;
+  }
+  .menuBar .logo img {
+    width: 50px;
+  }
+  .menuBar .logo a {
+    padding: 0;
+  }
+  .resume-aside {
+    border: none;
+    padding: 0;
+  }
+}
