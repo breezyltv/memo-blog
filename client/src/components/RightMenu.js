@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { AuthContext } from "../auth/AuthProvider";
 import {
   LoginOutlined,
-  UserOutlined,
   LogoutOutlined,
   DashboardOutlined
 } from "@ant-design/icons";
@@ -15,16 +14,21 @@ const RightMenu = () => {
   const history = useHistory();
   //get current user
   const { currentUser } = useContext(AuthContext);
-
+  const [loading, setLoading] = useState(false);
   let fullName = "Vu Le";
 
   const logoutUser = () => {
+    setLoading(true);
     logout()
       .then(() => {
         console.log("logout ok");
+        setLoading(false);
         history.push("/login");
       })
-      .catch(error => console.log(error.messages));
+      .catch(error => {
+        setLoading(false);
+        console.log(error.messages);
+      });
   };
 
   const authMenu = (
@@ -36,8 +40,7 @@ const RightMenu = () => {
         <Link to="/dashboard">Dashboard</Link>
       </Menu.Item>
 
-      <Button onClick={logoutUser}>
-        <LogoutOutlined />
+      <Button onClick={logoutUser} loading={loading} icon={<LogoutOutlined />}>
         Logout
       </Button>
     </Menu>

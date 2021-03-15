@@ -77,7 +77,7 @@ const Login = () => {
         <div className="card-form ">
           <Card title="Log In" bordered={false}>
             <Space direction="vertical">
-              <Text strong>Use email and pass below to login:</Text>
+              <Text strong>Use email and pass below for testing:</Text>
               <Text mark>Email: cse135grader@ucsd.edu</Text>
               <Text mark>Pass: winter2021hw5</Text>
             </Space>

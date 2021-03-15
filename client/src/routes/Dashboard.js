@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../auth/AuthProvider";
+import { Link, useHistory } from "react-router-dom";
+import { upperFirstChar } from "../utils/common";
 import {
-  Divider,
   Row,
   Col,
   Typography,
@@ -9,7 +10,8 @@ import {
   Space,
   Table,
   Tooltip,
-  Modal
+  Modal,
+  message
 } from "antd";
 import {
   PlusSquareOutlined,
@@ -21,9 +23,10 @@ import {
 import NewModal from "../components/NewModal";
 import { getAllArticles, deleteArticles } from "../lib/firebaseHelper";
 
-const { Title, Text } = Typography;
+const { Title, Text, Paragraph } = Typography;
 const { confirm } = Modal;
 const Dashboard = () => {
+  const history = useHistory();
   const { currentUser } = useContext(AuthContext);
   const [visible, setVisible] = useState(false);
   const [loadTable, setLoadTable] = useState(false);
@@ -32,18 +35,39 @@ const Dashboard = () => {
     method: "add",
     title: "Add an Article"
   });
-  //const [modalView, setModalView] = useState();
+  const key = "delete";
 
   const columns = [
     {
       title: "Title",
       dataIndex: "article_name",
-      key: "article_name"
+      key: "article_name",
+      render: (title, record) => (
+        <Tooltip placement="top" title="Detail">
+          <Link to={`/articles/${currentUser.uid}/${record.id}`}>
+            {upperFirstChar(title)}
+          </Link>
+        </Tooltip>
+      )
     },
     {
       title: "Summary",
       dataIndex: "article_body",
-      key: "article_body"
+      key: "article_body",
+      render: (summary, record) => (
+        <Paragraph
+          ellipsis={{
+            rows: 3,
+            expandable: true,
+            symbol: "more",
+            onExpand: () => {
+              history.push(`/articles/${currentUser.uid}/${record.id}`);
+            }
+          }}
+        >
+          {upperFirstChar(summary)}
+        </Paragraph>
+      )
     },
     {
       title: "Date",
@@ -87,7 +111,7 @@ const Dashboard = () => {
 
   const showArticles = () => {
     setLoadTable(true);
-    getAllArticles(currentUser.email)
+    getAllArticles(currentUser.uid)
       .orderBy("date", "desc")
       .onSnapshot(snapshot => {
         let articles = [];
@@ -121,6 +145,7 @@ const Dashboard = () => {
   };
 
   const handleUpdate = data => {
+    //convert object to array for storing form data
     let fields = [];
     for (const key in data) {
       fields.push({
@@ -139,7 +164,6 @@ const Dashboard = () => {
   };
 
   const handleDelete = data => {
-    console.log(data);
     confirm({
       title: "Do you want to delete this article?",
       icon: <ExclamationCircleOutlined />,
@@ -151,12 +175,23 @@ const Dashboard = () => {
         // return new Promise((resolve, reject) => {
         //   setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
         // }).catch(() => console.log("Oops errors!"));
-        deleteArticles(currentUser.email, data.id)
+        message.loading({ content: "Deleting this article...", key });
+        deleteArticles(currentUser.uid, data.id)
           .then(() => {
             console.log("Document successfully deleted!");
+            message.success({
+              content: "The article successfully deleted!",
+              key,
+              duration: 4
+            });
           })
           .catch(error => {
             console.error("Error removing document: ", error);
+            message.error({
+              content: "Error removing document!!",
+              key,
+              duration: 4
+            });
           });
       },
       onCancel() {}
@@ -182,7 +217,6 @@ const Dashboard = () => {
                     handleOk={handleOk}
                     handleCancel={handleCancel}
                     visible={visible}
-                    //title={"Update an Article"}
                     action={action}
                   />
                   <Button

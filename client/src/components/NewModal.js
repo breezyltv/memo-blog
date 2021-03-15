@@ -8,7 +8,8 @@ import {
   Divider,
   Typography,
   Space,
-  Alert
+  Alert,
+  message
 } from "antd";
 import { addBlog, updateArticle } from "../lib/firebaseHelper";
 const { TextArea } = Input;
@@ -17,10 +18,10 @@ const NewModal = ({ handleOk, handleCancel, visible, action }) => {
   const { currentUser } = useContext(AuthContext);
   const [form] = Form.useForm();
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const [status, setStatus] = useState({
-    show: false,
-    success: "Successfully added an article!!"
-  });
+  const [status, setStatus] = useState({});
+
+  const key = "updatable";
+
   form.resetFields();
   const onFinish = articleData => {
     setConfirmLoading(true);
@@ -32,15 +33,18 @@ const NewModal = ({ handleOk, handleCancel, visible, action }) => {
   };
 
   const handelAddArticle = articleData => {
-    addBlog(currentUser.email, articleData)
+    message.loading({ content: "Updating this article...", key });
+    addBlog(currentUser.uid, articleData)
       .then(docRef => {
         console.log("Document written with ID: ", docRef.id);
         setConfirmLoading(false);
-        form.resetFields();
-        setStatus({ ...status, show: true });
-        setTimeout(() => {
-          setStatus({ ...status, show: false });
-        }, 5000);
+
+        message.success({
+          content: "Successfully added the article!!",
+          key,
+          duration: 4,
+          onClose: form.resetFields()
+        });
       })
       .catch(error => {
         console.error("Error adding document: ", error);
@@ -52,11 +56,17 @@ const NewModal = ({ handleOk, handleCancel, visible, action }) => {
   };
 
   const handleUpdateArticle = articleData => {
-    updateArticle(currentUser.email, action.id, articleData)
+    message.loading({ content: "Updating this article...", key });
+    updateArticle(currentUser.uid, action.id, articleData)
       .then(() => {
         console.log("Document successfully written!");
         setConfirmLoading(false);
-        handleOk();
+        message.success({
+          content: "The article successfully updated!",
+          key,
+          duration: 4,
+          onClose: handleOk()
+        });
       })
       .catch(error => {
         console.error("Error writing document: ", error);
@@ -82,10 +92,6 @@ const NewModal = ({ handleOk, handleCancel, visible, action }) => {
         onCancel={handleCancel}
         footer={null}
       >
-        {status.show ? (
-          <Alert message={status.success} type="success" showIcon />
-        ) : null}
-
         <Form
           name="modal_view"
           form={form}
