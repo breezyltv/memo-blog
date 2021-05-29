@@ -2,7 +2,7 @@
 - For this part, I use React.js to complete this part for more convenient between front and back end.
 ### Feature:
 - Frontend:
-  - React.js
+  - React.js :white_check_mark:
   - Firebase Client SDK
   - UI: AntDesign
 - Backend:
